@@ -1,6 +1,40 @@
 ﻿@model UserManagement.Web.Models.Users.UserListViewModel
 
 <h2>User List</h2>
+@{
+    bool userCreated = ViewBag.UserCreated ?? false;
+    bool userUpdated = ViewBag.UserUpdated ?? false;
+}
+
+@if (userCreated)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        User created successfully.
+    </div>
+}
+
+@if (userUpdated)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        User updated successfully.
+    </div>
+}
+
+@if (ViewBag.UserDeleted is not null)
+{
+    if (ViewBag.UserDeleted)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            User Deleted successfully.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Failed to delete user
+        </div>
+    }
+}
 
 <div class="table-responsive">
     <table class="table table-striped">
@@ -9,6 +43,7 @@
                 <th>Id</th>
                 <th>Forename</th>
                 <th>Surname</th>
+                <th>Date Of Birth</th>
                 <th>Email</th>
                 <th>Account Active</th>
                 <th style="width: 1px;"></th>
@@ -28,6 +63,9 @@
                         @item.Surname
                     </td>
                     <td>
+                        @item.DateOfBirth.ToShortDateString()
+                    </td>
+                    <td>
                         @item.Email
                     </td>
                     <td>
@@ -39,9 +77,9 @@
                                 Actions
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="btnToggleActions">
-                                <li><a class="dropdown-item" href="#">View</a></li>
-                                <li><a class="dropdown-item" href="#">Edit</a></li>
-                                <li><a class="dropdown-item" href="#">Delete</a></li>
+                                <li><a asp-controller="Users" asp-action="View" asp-route-id=@item.Id class="dropdown-item">View</a></li>
+                                <li><a asp-controller="Users" asp-action="Edit" asp-route-id=@item.Id class="dropdown-item">Edit</a></li>
+                                <li><a asp-controller="Users" asp-action="Delete" asp-route-id=@item.Id class="dropdown-item">Delete</a></li>
                             </ul>
                         </div>
                     </td>
@@ -54,12 +92,10 @@
 <div>
     <div class="btn-group" role="group">
         <a asp-controller="Users" asp-action="List" class="btn btn-default">Show All</a>
-        <a href="#" class="btn btn-default">Active Only</a>
-        <a href="#" class="btn btn-default">Non Active</a>
+        <a asp-controller="Users" asp-action="List" asp-route-isActive="true" class="btn btn-default">Active Only</a>
+        <a asp-controller="Users" asp-action="List" asp-route-isActive="false" class="btn btn-default">Non Active</a>
     </div>
 
-    <a href="#" class="btn btn-primary float-end">
-        Add User
-    </a>
+    <a asp-controller="Users" asp-action="Add" class="btn btn-primary float-end">Add User</a>
 </div>
 

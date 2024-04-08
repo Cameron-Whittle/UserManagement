@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace UserManagement.Data;
 
@@ -17,16 +16,16 @@ public interface IDataContext
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="entity"></param>
-    /// <returns></returns>
-    void Create<TEntity>(TEntity entity) where TEntity : class;
+    /// <returns>A bool representing the success or failure of the operation</returns>
+    bool Create<TEntity>(TEntity entity) where TEntity : class;
 
     /// <summary>
     /// Uodate an existing item matching the ID
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="entity"></param>
-    /// <returns></returns>
-    void Update<TEntity>(TEntity entity) where TEntity : class;
+    /// <returns>A bool representing the success or failure of the operation</returns>
+    bool Update<TEntity>(TEntity entity) where TEntity : class;
 
-    void Delete<TEntity>(TEntity entity) where TEntity : class;
+    bool Delete<TEntity>(TEntity entity) where TEntity : class;
 }

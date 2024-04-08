@@ -1,0 +1,33 @@
+﻿@model UserManagement.Web.Models.Users.UserCreateViewModel
+@Html.ValidationSummary(true)
+
+@if (ViewBag.ErrorMessage is not null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        User creation failed. <br />
+        @Html.Raw(@ViewBag.ErrorMessage)
+    </div>
+}
+
+<h2>Add User</h2>
+
+<form asp-controller="Users" asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Forename">Forename:</label>
+        <input asp-for="Forename" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Surname">Surname:</label>
+        <input asp-for="Surname" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfBirth">Date of Birth:</label>
+        <input asp-for="DateOfBirth" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" type="email" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-action="List" class="btn btn-secondary">Back</a>
+</form>

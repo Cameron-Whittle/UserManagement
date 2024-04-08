@@ -1,0 +1,57 @@
+﻿@model UserManagement.Web.Models.Users.UserAndLogViewModel
+
+<h2>User Details</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>Id</dt>
+            <dd>@Model.User.Id</dd>
+            
+            <dt>Forename</dt>
+            <dd>@Model.User.Forename</dd>
+            
+            <dt>Surname</dt>
+            <dd>@Model.User.Surname</dd>
+            
+            <dt>Date Of Birth</dt>
+            <dd>@Model.User.DateOfBirth.ToShortDateString()</dd>
+            
+            <dt>Email</dt>
+            <dd>@Model.User.Email</dd>
+            
+            <dt>Account Active</dt>
+            <dd>@(Model.User.IsActive ? "Yes" : "No")</dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <h3>User Logs</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Time</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var log in Model.Logs)
+                {
+                    <tr>
+                        <td>@log.Action</td>
+                        <td>@log.Updated</td>
+                        <td><a asp-action="Logs/Details" asp-route-id="@Model.User.Id" class="btn btn-secondary">View Details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <a asp-action="List" class="btn btn-secondary">Back</a>
+        <a asp-action="Edit" asp-route-id="@Model.User.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.User.Id" class="btn btn-primary">Delete</a>
+    </div>
+</div>
